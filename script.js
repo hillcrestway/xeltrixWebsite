@@ -1,6 +1,11 @@
 (function() {
-    // Initialize EmailJS with your User ID
-    emailjs.init("VTravprD8X1ELze4f"); // Replace with your EmailJS User ID
+    // Initialize EmailJS with your Public Key
+    if (typeof emailjs === 'undefined') {
+        console.error('EmailJS SDK not loaded. Please check the CDN script inclusion.');
+        alert('Failed to load email service. Please try again later.');
+        return;
+    }
+    emailjs.init("VTravprD8X1ELze4f"); // Replace with your EmailJS Public Key
 })();
 
 // Hamburger menu toggle
@@ -30,6 +35,13 @@ function toggleMenu() {
 const form = document.querySelector('.contact-form');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    // Check if EmailJS is loaded
+    if (typeof emailjs === 'undefined') {
+        console.error('EmailJS SDK not loaded.');
+        alert('Email service unavailable. Please try again later.');
+        return;
+    }
 
     // Collect form data
     const formData = {
